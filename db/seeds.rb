@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+how = Word.create!(text: 'how')
+how.urls.create!(text: 'https://youtu.be/zftO6LJyTXI?t=24')
+
+who = Word.create!(text: 'who')
+who.urls.create!(text: 'https://youtu.be/zftO6LJyTXI?t=121')
+
