@@ -13,7 +13,3 @@ Lookup.create!(word: 'how', video_url: ['https://youtu.be/zftO6LJyTXI?t=24'])
 Lookup.create!(word: 'who', video_url: ['https://youtu.be/zftO6LJyTXI?t=121'])
 Lookup.create!(word: 'brush_teeth', video_url: ['https://youtu.be/kKjlfccBrxs?t=19'])
 Lookup.create!(word: 'hello', video_url: ['https://youtu.be/DClaou4oR6c?t=3'])
-
-
-
-
