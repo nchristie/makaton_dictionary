@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+
+        <input type="text" id="myText" value="Search">
+        <button type="button" onclick="searchForWord()">Search</button>
+        <h1 id="word"></h1>
+        <iframe id="link" width="420" height="315"></iframe>
+       
+    </body>
+    <script>
+        function searchForWord() {
+            let search_term = document.getElementById("myText").value;
+            document.getElementById("word").innerHTML = search_term.toLowerCase();
+            let link = document.getElementById("link")
+            let word = document.getElementById("word")
+            let request = new XMLHttpRequest();
+            request.open("GET", `http://127.0.0.1:3000/search/${search_term}`);
+            request.send();
+            request.onload = () => {
+                let response = JSON.parse(request.response)
+                console.log(response)
+                word.innerText = response.data.attributes["word"]
+                link.src= response.data.attributes["video-url"][0];
+            }
+        }
+    </script>
+</html>
