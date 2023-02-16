@@ -52,3 +52,6 @@ end
 
 # linting
 gem 'rubocop-rails', require: false
+
+# API helper
+gem 'jsonapi-resources'
