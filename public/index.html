@@ -102,6 +102,13 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById("myText");
+            searchInput.addEventListener("focus", () => {
+                if (searchInput.value === "Search") {
+                    searchInput.value = "";
+                }
+            });
+
             const searchForm = document.querySelector("form");
             searchForm.addEventListener("submit", handleSearch);
 
