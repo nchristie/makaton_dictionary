@@ -14,4 +14,3 @@ Lookup.create!(word: 'who', video_url: ['https://youtube.com/embed/zftO6LJyTXI?s
 Lookup.create!(word: 'brush_teeth', video_url: ['https://youtube.com/embed/kKjlfccBrxs?start=19&autoplay=1'])
 Lookup.create!(word: 'hello', video_url: ['https://youtube.com/embed/DClaou4oR6c?start=3&autoplay=1'])
 Lookup.create!(word: 'strawberry', video_url: ['https://www.youtube.com/embed/89CUYNxZioM?start=9&autoplay=1'])
-

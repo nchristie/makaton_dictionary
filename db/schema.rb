@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,31 +12,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_16_113424) do
+ActiveRecord::Schema[7.0].define(version: 20_230_216_113_424) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "lookups", id: false, force: :cascade do |t|
-    t.string "word"
-    t.text "video_url", default: [], array: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["word"], name: "index_lookups_on_word", unique: true
+  create_table 'lookups', id: false, force: :cascade do |t|
+    t.string 'word'
+    t.text 'video_url', default: [], array: true
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['word'], name: 'index_lookups_on_word', unique: true
   end
 
-  create_table "urls", force: :cascade do |t|
-    t.string "text"
-    t.bigint "word_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["word_id"], name: "index_urls_on_word_id"
+  create_table 'urls', force: :cascade do |t|
+    t.string 'text'
+    t.bigint 'word_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['word_id'], name: 'index_urls_on_word_id'
   end
 
-  create_table "words", force: :cascade do |t|
-    t.string "text"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'words', force: :cascade do |t|
+    t.string 'text'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "urls", "words"
+  add_foreign_key 'urls', 'words'
 end

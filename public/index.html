@@ -1,15 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    </head>
-    <body>
 
+<head>
+    <title>Search for Makaton Signs</title>
+    <style>
+        /* Set font family and size for the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        /* Style the search form */
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0;
+        }
+
+        input[type="text"] {
+            font-size: 16px;
+            padding: 10px;
+            margin-right: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Style the heading */
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        /* Style the video iframe */
+        iframe {
+            display: block;
+            margin: 0 auto;
+            width: 80%;
+            height: 500px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
         <input type="text" id="myText" value="Search">
         <button type="button" onclick="searchForWord()">Search</button>
-        <h1 id="word"></h1>
-        <iframe id="link" width="420" height="315"></iframe>
-       
-    </body>
+    </form>
+    <h1 id="word"></h1>
+    <iframe id="link"></iframe>
     <script>
         function searchForWord() {
             let search_term = document.getElementById("myText").value;
@@ -23,8 +80,10 @@
                 let response = JSON.parse(request.response)
                 console.log(response)
                 word.innerText = response.data.attributes["word"]
-                link.src= response.data.attributes["video-url"][0];
+                link.src = response.data.attributes["video-url"][0];
             }
         }
     </script>
+</body>
+
 </html>
