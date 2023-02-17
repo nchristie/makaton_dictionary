@@ -66,44 +66,48 @@
 <body>
     <form>
         <input type="text" id="myText" value="Search">
-        <button type="button" onclick="searchForWord()">Search</button>
+        <button type="button" id="searchButton">Search</button>
     </form>
     <h1 id="word"></h1>
     <div class="video-container"></div>
+
     <script>
-        function searchForWord() {
-            let searchInput = document.getElementById("myText").value;
-            let lowerSearchInput = searchInput.toLowerCase();
-            console.log("lowerSearchInput", lowerSearchInput)
-            document.getElementById("word").innerHTML = lowerSearchInput;
-            let videoContainer = document.querySelector(".video-container");
-            let request = new XMLHttpRequest();
-            request.open("GET", `http://127.0.0.1:3000/search/${lowerSearchInput}`);
-            request.send();
-            request.onload = () => {
-                let response = JSON.parse(request.response)
-                console.log(response)
-                let videoUrls = response.data.attributes["video-url"];
-                videoContainer.innerHTML = "";
-                videoUrls.forEach((url) => {
-                    let iframe = document.createElement("iframe");
-                    iframe.src = url;
-                    videoContainer.appendChild(iframe);
+        function searchForWord(searchTerm) {
+            const searchUrl = `http://127.0.0.1:3000/search/${searchTerm}`;
+            return fetch(searchUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const videoUrls = data.data.attributes["video-url"];
+                    const videoContainer = document.querySelector(".video-container");
+                    videoContainer.innerHTML = "";
+                    videoUrls.forEach((url) => {
+                        const iframe = document.createElement("iframe");
+                        iframe.src = url;
+                        videoContainer.appendChild(iframe);
+                    });
+                    return videoUrls;
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("An error occurred while searching. Please try again later.");
                 });
-            }
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const searchInput = document.getElementById("myText");
+            const searchTerm = searchInput.value.toLowerCase();
+            document.getElementById("word").innerHTML = searchTerm;
+            searchForWord(searchTerm);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            let searchInput = document.getElementById("myText").value.toLowerCase();
-            searchInput.addEventListener("keydown", (event) => {
-                if (event.keyCode === 13) {
-                    event.preventDefault();
-                    searchForWord();
-                }
-            });
+            const searchForm = document.querySelector("form");
+            searchForm.addEventListener("submit", handleSearch);
+
+            const searchButton = document.getElementById("searchButton");
+            searchButton.addEventListener("click", handleSearch);
         });
-
-
     </script>
 </body>
 
