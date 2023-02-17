@@ -1,86 +1,110 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Search for Makaton Signs</title>
-        <style>
-            /* Add the CSS code here */
-            body {
-              font-family: Arial, sans-serif;
-              font-size: 16px;
+
+<head>
+    <title>Search for Makaton Signs</title>
+    <style>
+        /* Add the CSS code here */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px 0;
+        }
+
+        input[type="text"] {
+            font-size: 16px;
+            padding: 10px;
+            margin-right: 10px;
+            width: 60%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .video-container iframe {
+            width: 80%;
+            height: 500px;
+            margin: 10px 0;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <form>
+        <input type="text" id="myText" value="Search">
+        <button type="button" onclick="searchForWord()">Search</button>
+    </form>
+    <h1 id="word"></h1>
+    <div class="video-container"></div>
+    <script>
+        function searchForWord() {
+            let searchInput = document.getElementById("myText").value;
+            let lowerSearchInput = searchInput.toLowerCase();
+            console.log("lowerSearchInput", lowerSearchInput)
+            document.getElementById("word").innerHTML = lowerSearchInput;
+            let videoContainer = document.querySelector(".video-container");
+            let request = new XMLHttpRequest();
+            request.open("GET", `http://127.0.0.1:3000/search/${lowerSearchInput}`);
+            request.send();
+            request.onload = () => {
+                let response = JSON.parse(request.response)
+                console.log(response)
+                let videoUrls = response.data.attributes["video-url"];
+                videoContainer.innerHTML = "";
+                videoUrls.forEach((url) => {
+                    let iframe = document.createElement("iframe");
+                    iframe.src = url;
+                    videoContainer.appendChild(iframe);
+                });
             }
-            form {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              margin: 50px 0;
-            }
-            input[type="text"] {
-              font-size: 16px;
-              padding: 10px;
-              margin-right: 10px;
-              width: 60%;
-              border: 1px solid #ccc;
-              border-radius: 4px;
-            }
-            button[type="submit"] {
-              background-color: #4CAF50;
-              color: white;
-              font-size: 16px;
-              padding: 10px 20px;
-              border: none;
-              border-radius: 4px;
-              cursor: pointer;
-            }
-            button[type="submit"]:hover {
-              background-color: #45a049;
-            }
-            h1 {
-              font-size: 32px;
-              text-align: center;
-              margin-top: 50px;
-              margin-bottom: 30px;
-            }
-            .video-container {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              margin-top: 30px;
-            }
-            .video-container iframe {
-              width: 80%;
-              height: 500px;
-              margin: 10px 0;
-              border: none;
-            }
-        </style>
-    </head>
-    <body>
-        <form>
-            <input type="text" id="myText" value="Search">
-            <button type="button" onclick="searchForWord()">Search</button>
-        </form>
-        <h1 id="word"></h1>
-        <div class="video-container"></div>
-        <script>
-            function searchForWord() {
-                let search_term = document.getElementById("myText").value;
-                document.getElementById("word").innerHTML = search_term.toLowerCase();
-                let videoContainer = document.querySelector(".video-container");
-                let request = new XMLHttpRequest();
-                request.open("GET", `http://127.0.0.1:3000/search/${search_term}`);
-                request.send();
-                request.onload = () => {
-                    let response = JSON.parse(request.response)
-                    console.log(response)
-                    let videoUrls = response.data.attributes["video-url"];
-                    videoContainer.innerHTML = "";
-                    videoUrls.forEach((url) => {
-                      let iframe = document.createElement("iframe");
-                      iframe.src = url;
-                      videoContainer.appendChild(iframe);
-                    });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let searchInput = document.getElementById("myText").value.toLowerCase();
+            searchInput.addEventListener("keydown", (event) => {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    searchForWord();
                 }
-            }
-        </script>
-    </body>
+            });
+        });
+
+
+    </script>
+</body>
+
 </html>
