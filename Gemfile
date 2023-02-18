@@ -46,3 +46,6 @@ group :development do
   # gem "spring"
 end
 
+# Linting
+gem "rubocop-rails", require: false
+
