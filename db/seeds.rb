@@ -15,3 +15,4 @@ Lookup.create!(word: 'brush_teeth', video_url: ['https://youtube.com/embed/kKjlf
 Lookup.create!(word: 'hello', video_url: ['https://youtube.com/embed/DClaou4oR6c?start=3&autoplay=1'])
 Lookup.create!(word: 'strawberry', video_url: ['https://www.youtube.com/embed/89CUYNxZioM?start=9&autoplay=1'])
 Lookup.create!(word: 'happy', video_url: ['https://youtube.com/embed/EfrJriE5Hwg?start=80&autoplay=1', 'https://youtube.com/embed/JoJC0TSFb5I?start=7&autoplay=1'])
+Lookup.create!(word: 'sad', video_url: ["https://youtube.com/embed/Grew-8ZGjaI?start=26"])
